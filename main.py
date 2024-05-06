@@ -169,14 +169,18 @@ class Cube:
         y = self.row * gap
 
         if self.temp != 0 and self.value == 0:
-            text = fnt.render(str(self.temp), 1, (128,128,128))
-            win.blit(text, (x+5, y+5))
+            text = fnt.render(str(self.temp), 1, (128, 128, 128))
+            win.blit(text, (x + 5, y + 5))
         elif not(self.value == 0):
-            text = fnt.render(str(self.value), 1, (0, 0, 0))
+            if self.temp == 0:  # Check if it's a user input number
+                text_color = (0, 0, 0)  # Black color for user input numbers
+            else:
+                text_color = (255, 123, 0)  # Red color for initial numbers
+            text = fnt.render(str(self.value), 1, text_color)
             win.blit(text, (x + (gap/2 - text.get_width()/2), y + (gap/2 - text.get_height()/2)))
 
         if self.selected:
-            pygame.draw.rect(win, (255,0,0), (x,y, gap ,gap), 3)
+            pygame.draw.rect(win, (255, 0, 0), (x, y, gap, gap), 3)  # Change the selection color to red
 
     def draw_change(self, win, g=True):
         fnt = pygame.font.SysFont("comicsans", 40)
